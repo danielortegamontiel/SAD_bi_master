@@ -1,0 +1,38 @@
+-- Exemplo 1 criação da tabela Aluno
+CREATE TABLE if not EXISTS aluno(
+  matricula INT PRIMARY KEY,
+  nomealuno VARCHAR(30) NOT NULL,
+  sexo CHAR(1) CHECK(sexo IN ('M', 'F')),
+  dtnascimento DATE
+);
+
+-- Exemplo 2 criação da tabela Departamento
+CREATE TABLE if not EXISTS departamento(
+  coddepto INT PRIMARY KEY,
+  nomedpto VARCHAR(30)
+  );
+  
+ -- Exemplo 3 criação da tabela Curso
+CREATE TABLE IF NOT EXISTS curso(
+  codcurso INT PRIMARY KEY,
+  nomecurso VARCHAR(30) NOT NULL,
+  ch INT CHECK(ch > 0), -- CH = Carga Horária
+  preco DECIMAL(6,2)
+);
+
+/*ALTER TABLE curso
+	ADD COLUMN IF NOT EXISTS coddepto INT,
+    ADD CONSTRAINT IF NOT EXISTS fk_coddepto
+    FOREIGN KEY (coddepto) 
+    REFERENCES departamento(coddepto);
+*/    
+    
+-- Exemplo 4 criação da tabela Matrícula
+CREATE TABLE IF NOT EXISTS matricula(
+  matricula INT,
+  codcurso INT,
+  dtmatricula DATE,
+  PRIMARY key (matricula, codcurso),
+  foreign key(matricula) references aluno(matricula),
+  foreign key(codcurso) REFERENCES curso(codcurso)
+  );
